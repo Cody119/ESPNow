@@ -1,8 +1,12 @@
 #include "main.h"
 
-//"Reworked" board 30 ae a4 36 45 f4
+//"Reworked"
+// 30 ae a4 36 45 f4 - Factory
+// 30 ae a4 36 45 f4 - Station
 uint8_t MAC1[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x36, 0x45, 0xF4};
-//Other board 30 ae a4 0d 70 a4
+//Other board 
+// 30 ae a4 0d 70 a4 - Factory
+// 30 ae a4 0d 70 a5 - Station
 uint8_t MAC2[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x0D, 0x70, 0xA4};
 
 /* WiFi should start before using ESPNOW */
@@ -12,7 +16,8 @@ static void wifi_init() {
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
     ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
-    ESP_ERROR_CHECK( esp_wifi_set_mode(ESP_NOW_WIFI_MODE) );
+    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_STA) );
+
     ESP_ERROR_CHECK( esp_wifi_start());
 
     /* Set channel */
@@ -38,9 +43,12 @@ static void wifi_init() {
 
 static xQueueHandle evt_queue = NULL;
 
+#ifdef BUTTON
+
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
     //uint32_t x = gpio_get_level(GPIO_NUM_32);
-    uint16_t *d = malloc(sizeof(uint16_t));
+    //ESP_LOGI(ESP_W_TAG, "Got button press");
+    uint8_t *d = malloc(sizeof(uint8_t));
     *d = 77;
     espNowEvent_t event;
     event.id = SEND;
@@ -48,15 +56,32 @@ static void IRAM_ATTR gpio_isr_handler(void* arg) {
     memcpy(event.eventData.sendData.mac, MAC1, sizeof(MAC1));
     xQueueSendFromISR(evt_queue, &event, NULL);
 }
+#else
+
+uint32_t x = 0;
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], void *data, uint16_t len){
+    x = !x;
+    ESP_ERROR_CHECK( gpio_set_level(GPIO_NUM_13, x) );
+};
+
+#endif
+
+
 
 void app_main(void)
 {
     nvs_flash_init();
     wifi_init();
-    espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1);
+
+#ifdef BUTTON
+    espNowHandle_t *espNowQueue = espNowWrapper(MAC1);
+#else
+    espNowHandle_t *espNowQueue = espNowWrapper(MAC2);
+    espNowQueue->recvEvent = &recvEvent;
+#endif
     espNowLogMac();
     
-
+#ifdef BUTTON
     evt_queue = espNowQueue->eventQueue;
     gpio_config_t config = {
         .pin_bit_mask = GPIO_SEL_32,
@@ -71,5 +96,7 @@ void app_main(void)
     gpio_install_isr_service(0);
     //hook isr handler for specific gpio pin
     gpio_isr_handler_add(GPIO_NUM_32, gpio_isr_handler, NULL);
+#else
+#endif
 }
 
