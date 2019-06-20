@@ -1,10 +1,10 @@
 #include "main.h"
 
-//"Reworked"
+//"Reworked" (COM12?)
 // 30 ae a4 36 45 f4 - Factory
 // 30 ae a4 36 45 f4 - Station
 uint8_t MAC1[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x36, 0x45, 0xF4};
-//Other board 
+//Other board (COM13?)
 // 30 ae a4 0d 70 a4 - Factory
 // 30 ae a4 0d 70 a5 - Station
 uint8_t MAC2[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x0D, 0x70, 0xA4};
@@ -97,6 +97,9 @@ void app_main(void)
     //hook isr handler for specific gpio pin
     gpio_isr_handler_add(GPIO_NUM_32, gpio_isr_handler, NULL);
 #else
+
+    gpio_pad_select_gpio(GPIO_NUM_13);
+    gpio_set_direction(GPIO_NUM_13, GPIO_MODE_OUTPUT);
 #endif
 }
 
