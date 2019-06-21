@@ -1,13 +1,65 @@
 #include "main.h"
 
-//"Reworked" (COM12?)
+//-------------------------------------
+// MAC Adresses for used devices
+//-------------------------------------
+
+//"Reworked" (COM12?) The recieve device
 // 30 ae a4 36 45 f4 - Factory
 // 30 ae a4 36 45 f4 - Station
 uint8_t MAC1[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x36, 0x45, 0xF4};
-//Other board (COM13?)
+//Other board (COM13?) the button device
 // 30 ae a4 0d 70 a4 - Factory
 // 30 ae a4 0d 70 a5 - Station
 uint8_t MAC2[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x0D, 0x70, 0xA4};
+
+
+// -------------------------------------------------------------------------------------------------------
+// Modified RSSI logger (Source: https://gist.github.com/Staubgeborener/28d571ef812303cbf47915b81c158576)
+// -------------------------------------------------------------------------------------------------------
+
+// This struct was obtained from https://www.hackster.io/p99will/esp32-wifi-mac-scanner-sniffer-promiscuous-4c12f4
+typedef struct { 
+  int16_t fctl;
+  int16_t duration;
+  uint8_t da[6];
+  uint8_t sa[6];
+  uint8_t bssid[6];
+  int16_t seqctl;
+  unsigned char payload[];
+} __attribute__((packed)) WifiMgmtHdr;
+
+#ifdef BUTTON
+#define WHITE_LIST MAC1
+#else
+#define WHITE_LIST MAC2
+#endif
+
+
+void wifi_promiscuous(void* buffer, wifi_promiscuous_pkt_type_t type)
+{
+    //parsing buffer data
+    wifi_promiscuous_pkt_t* p = (wifi_promiscuous_pkt_t*)buffer;
+
+    //see: https://github.com/espressif/esp-idf/blob/8e4a8e17037c51ce2452e55b5b75bbfaecb25838/components/esp32/include/esp_wifi_types.h#L192
+    int len = p->rx_ctrl.sig_len;
+    WifiMgmtHdr *wh = (WifiMgmtHdr*)p->payload;
+    if (len < 0){
+        return;
+    }
+    if (memcmp(WHITE_LIST, wh->sa, 6) == 0) {
+        ESP_LOGI(WESP_NOW_TAG, "Recived packet with RSSI: %02d from "MACSTR, p->rx_ctrl.rssi, MAC2STR(wh->sa));
+    }
+}
+
+void logRSSI() {
+    esp_wifi_set_promiscuous_rx_cb(&wifi_promiscuous); //set promiscuous callback
+    esp_wifi_set_promiscuous(true); //as soon this flag is true, the callback will triggered for each packet
+}
+
+
+
+//------------------------------------------------------------------------------------------
 
 /* WiFi should start before using ESPNOW */
 static void wifi_init() {
@@ -45,24 +97,38 @@ static xQueueHandle evt_queue = NULL;
 
 #ifdef BUTTON
 
+static char sendStr[] = "Hello World";
+
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
     //uint32_t x = gpio_get_level(GPIO_NUM_32);
     //ESP_LOGI(WESP_NOW_TAG, "Got button press");
-    uint8_t *d = malloc(sizeof(uint8_t));
-    *d = 77;
+    char *d = malloc(sizeof(sendStr));
+    memcpy(d, sendStr, sizeof(sendStr));
     espNowEvent_t event;
     event.id = SEND;
     event.eventData.sendData.data = d;
-    event.eventData.sendData.len = sizeof(uint8_t);
-    memcpy(event.eventData.sendData.mac, MAC1, sizeof(MAC1));
+    event.eventData.sendData.len = sizeof(sendStr);
+    memcpy(event.eventData.sendData.mac, MAC1, ESP_NOW_ETH_ALEN);
     xQueueSendFromISR(evt_queue, &event, NULL);
+}
+
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
+    ESP_LOGI(WESP_NOW_TAG, "\"%s\" from server", (char*)(data->payload));
 }
 #else
 
-uint32_t x = 0;
+// uint32_t x = 0;
 static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
-    x = !x;
-    ESP_ERROR_CHECK( gpio_set_level(GPIO_NUM_13, x) );
+    // x = !x;
+    // ESP_ERROR_CHECK( gpio_set_level(GPIO_NUM_13, x) );
+    char *d = malloc(sizeof(len));
+    memcpy(d, data->payload, len);
+    espNowEvent_t event;
+    event.id = SEND;
+    event.eventData.sendData.data = d;
+    event.eventData.sendData.len = len;
+    memcpy(event.eventData.sendData.mac, sender_mac, ESP_NOW_ETH_ALEN);
+    xQueueSend(evt_queue, &event, 0);
 };
 
 #endif
@@ -76,15 +142,17 @@ void app_main(void)
 
 #ifdef BUTTON
     espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1);
+    espNowQueue->recvEvent = &recvEvent;
 #else
 
     espNowHandle_t *espNowQueue = espNowWrapper(&MAC2, 1);
     espNowQueue->recvEvent = &recvEvent;
 #endif
+
     espNowLogMac();
+    evt_queue = espNowQueue->eventQueue;
     
 #ifdef BUTTON
-    evt_queue = espNowQueue->eventQueue;
     gpio_config_t config = {
         .pin_bit_mask = GPIO_SEL_32,
         .mode = GPIO_MODE_DEF_INPUT,
@@ -103,5 +171,6 @@ void app_main(void)
     gpio_pad_select_gpio(GPIO_NUM_13);
     gpio_set_direction(GPIO_NUM_13, GPIO_MODE_OUTPUT);
 #endif
+    logRSSI();
 }
 

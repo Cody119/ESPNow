@@ -5,7 +5,6 @@ esp_now_send_status_t last_status;
 static void espNowSendCb(const uint8_t *mac_addr, esp_now_send_status_t status) {
     switch (status) {
         case ESP_NOW_SEND_SUCCESS:
-            ESP_LOGI(WESP_NOW_TAG, "Packet sent to mac: "MACSTR, MAC2STR(mac_addr));
             break;
         case ESP_NOW_SEND_FAIL:
             if (mac_addr == NULL) {
@@ -31,11 +30,11 @@ static void espNowRecvCb(const uint8_t *mac_addr, const uint8_t *data, int len) 
         return;
     }
     if (len <= 0) {
-        ESP_LOGI(WESP_NOW_TAG, "Recived empty packet from "MACSTR, MAC2STR(mac_addr));
+        ESP_LOGV(WESP_NOW_TAG, "Recived empty packet from "MACSTR, MAC2STR(mac_addr));
         return;
     }
-    ESP_LOGI(WESP_NOW_TAG, "Recived packet from "MACSTR, MAC2STR(mac_addr));    
-    esp_log_buffer_hex(WESP_NOW_TAG, data, len);
+    ESP_LOGV(WESP_NOW_TAG, "Recived packet from "MACSTR, MAC2STR(mac_addr));    
+    ESP_LOG_BUFFER_HEX_LEVEL(WESP_NOW_TAG, data, len, ESP_LOG_VERBOSE);
 
     uint8_t *d = malloc(sizeof(uint8_t) * len);
     memcpy(d, data, len);
@@ -43,6 +42,7 @@ static void espNowRecvCb(const uint8_t *mac_addr, const uint8_t *data, int len) 
     event.id = RECV;
     event.eventData.sendData.data = d;
     event.eventData.recvData.len = len;
+    memcpy(event.eventData.sendData.mac, mac_addr, ESP_NOW_ETH_ALEN);
     BaseType_t ret = xQueueSend(wrapperHandle.eventQueue, &event, 0);
 }
 
@@ -63,21 +63,21 @@ static void espNowTask( void * pvParameters ) {
         if (xQueueReceive(eventQueue, &event, portMAX_DELAY)) {
             switch (event.id) {
                 case SEND: {
-                    ESP_LOGI(WESP_NOW_TAG, "Sending to mac: "MACSTR, MAC2STR(event.eventData.sendData.mac));
+                    ESP_LOGV(WESP_NOW_TAG, "Sending to mac: "MACSTR, MAC2STR(event.eventData.sendData.mac));
                     
                     uint32_t psize = sizeof(espNowPacket_t)  + event.eventData.sendData.len;
                     espNowPacket_t *packet = malloc(psize);
                     packet->seq_num = 0;
                     memcpy(packet->payload, event.eventData.sendData.data, event.eventData.sendData.len);
                     //packet->crc = crc16_le(UINT16_MAX, (uint8_t const *)packet, sizeof(espNowPacket_t) + sizeof(uint8_t));
-                    esp_log_buffer_hex(WESP_NOW_TAG, (uint8_t*)packet, psize);
+                    ESP_LOG_BUFFER_HEX_LEVEL(WESP_NOW_TAG, (uint8_t*)packet, psize, ESP_LOG_VERBOSE);
                     ESP_ERROR_CHECK( esp_now_send(event.eventData.sendData.mac, (const uint8_t *)packet, psize) );
 
                     uint32_t ulNotificationValue = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
                     if (ulNotificationValue == 1 && last_status == ESP_NOW_SEND_SUCCESS) {
-                        ESP_LOGI(WESP_NOW_TAG, "Good Send");
+                        ESP_LOGV(WESP_NOW_TAG, "Packet sent to mac: "MACSTR, MAC2STR(event.eventData.sendData.mac));
                     } else {
-                        ESP_LOGI(WESP_NOW_TAG, "Bad Send, Notify: %d, LastSend: %d", ulNotificationValue, last_status);
+                        ESP_LOGV(WESP_NOW_TAG, "Bad Send, Notify: %d, LastSendStatus: %d", ulNotificationValue, last_status);
                     }
 
                     free(packet);
@@ -98,7 +98,7 @@ static void espNowTask( void * pvParameters ) {
                 }
                 
                 default:
-                    ESP_LOGI(WESP_NOW_TAG, "Recived Unhandled event %d", event.id);
+                    ESP_LOGV(WESP_NOW_TAG, "Recived Unhandled event %d", event.id);
             }
         }
     }
@@ -107,12 +107,12 @@ static void espNowTask( void * pvParameters ) {
 void espNowLogMac() {
     uint8_t mac[ESP_NOW_ETH_ALEN];
     esp_efuse_mac_get_default(mac);
-    ESP_LOGI(WESP_NOW_TAG, "MAC Adress: "MACSTR, MAC2STR(mac));
+    ESP_LOGV(WESP_NOW_TAG, "MAC Adress: "MACSTR, MAC2STR(mac));
     wifi_mode_t x;
     esp_wifi_get_mode(&x);
-    ESP_LOGI(WESP_NOW_TAG, "Mode: %d", x);
+    ESP_LOGV(WESP_NOW_TAG, "Mode: %d", x);
     esp_wifi_get_mac(x, mac);
-    ESP_LOGI(WESP_NOW_TAG, "Mode MAC: "MACSTR, MAC2STR(mac));
+    ESP_LOGV(WESP_NOW_TAG, "Mode MAC: "MACSTR, MAC2STR(mac));
     
 }
 
@@ -146,7 +146,7 @@ espNowHandle_t *espNowWrapper(uint8_t (*peer_macs)[ESP_NOW_ETH_ALEN], uint16_t l
     uint8_t (*next_mac)[ESP_NOW_ETH_ALEN] = peer_macs;
     for (; i < length; i++) {
         espNowAddPeer(*peer_macs);
-        ESP_LOGI(WESP_NOW_TAG, "Added peer with mac: "MACSTR, MAC2STR(*peer_macs));
+        ESP_LOGV(WESP_NOW_TAG, "Added peer with mac: "MACSTR, MAC2STR(*peer_macs));
         next_mac++;
     }
 
