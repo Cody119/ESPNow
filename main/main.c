@@ -60,7 +60,7 @@ static void IRAM_ATTR gpio_isr_handler(void* arg) {
 #else
 
 uint32_t x = 0;
-static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], void *data, uint16_t len){
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
     x = !x;
     ESP_ERROR_CHECK( gpio_set_level(GPIO_NUM_13, x) );
 };
