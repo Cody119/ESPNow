@@ -67,7 +67,7 @@ static void espNowTask( void * pvParameters ) {
                     
                     uint32_t psize = sizeof(espNowPacket_t)  + event.eventData.sendData.len;
                     espNowPacket_t *packet = malloc(psize);
-                    packet->seq_num = 0;
+                    packet->seq_num = event.eventData.sendData.seq;
                     memcpy(packet->payload, event.eventData.sendData.data, event.eventData.sendData.len);
                     //packet->crc = crc16_le(UINT16_MAX, (uint8_t const *)packet, sizeof(espNowPacket_t) + sizeof(uint8_t));
                     ESP_LOG_BUFFER_HEX_LEVEL(WESP_NOW_TAG, (uint8_t*)packet, psize, ESP_LOG_VERBOSE);

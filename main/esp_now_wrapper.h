@@ -15,7 +15,7 @@
 
 #define WESP_NOW_TAG "EspNow Wrapper"
 #define WESP_NOW_WIFI_CHANNEL 1
-#define WESP_NOW_EVENT_QUEUE_SIZE 10
+#define WESP_NOW_EVENT_QUEUE_SIZE 50
 
 #define PRIMARY_KEY "pmk1234567890123"
 #define LOCAL_KEY "lmk1234567890123"
@@ -53,6 +53,7 @@ typedef struct {
             uint8_t mac[ESP_NOW_ETH_ALEN];
             void *data;
             uint16_t len;
+            uint16_t seq;
         } sendData;
 
         struct {

@@ -48,7 +48,7 @@ void wifi_promiscuous(void* buffer, wifi_promiscuous_pkt_type_t type)
         return;
     }
     if (memcmp(WHITE_LIST, wh->sa, 6) == 0) {
-        ESP_LOGI(WESP_NOW_TAG, "Recived packet with RSSI: %02d from "MACSTR, p->rx_ctrl.rssi, MAC2STR(wh->sa));
+        ESP_LOGD(WESP_NOW_TAG, "Recived packet with RSSI: %02d from "MACSTR, p->rx_ctrl.rssi, MAC2STR(wh->sa));
     }
 }
 
@@ -97,39 +97,67 @@ static xQueueHandle evt_queue = NULL;
 
 #ifdef BUTTON
 
-static char sendStr[] = "Hello World";
+TickType_t prev = 0;
+uint16_t count = 0;
 
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
-    //uint32_t x = gpio_get_level(GPIO_NUM_32);
-    //ESP_LOGI(WESP_NOW_TAG, "Got button press");
-    char *d = malloc(sizeof(sendStr));
-    memcpy(d, sendStr, sizeof(sendStr));
+    TickType_t t = xTaskGetTickCountFromISR();
+    if (t - prev < (250/portTICK_PERIOD_MS)) { 
+        return;
+    }
+    prev = t;
+
+    int16_t *d = malloc(sizeof(int16_t));
+    count++;
+    *d = count;
     espNowEvent_t event;
     event.id = SEND;
     event.eventData.sendData.data = d;
-    event.eventData.sendData.len = sizeof(sendStr);
+    event.eventData.sendData.len = sizeof(int16_t);
     memcpy(event.eventData.sendData.mac, MAC1, ESP_NOW_ETH_ALEN);
     xQueueSendFromISR(evt_queue, &event, NULL);
 }
 
 static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
-    ESP_LOGI(WESP_NOW_TAG, "\"%s\" from server", (char*)(data->payload));
-}
-#else
-
-// uint32_t x = 0;
-static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
-    // x = !x;
-    // ESP_ERROR_CHECK( gpio_set_level(GPIO_NUM_13, x) );
-    char *d = malloc(sizeof(len));
-    memcpy(d, data->payload, len);
+    // char *d = malloc(sizeof(len));
+    // memcpy(d, data->payload, len);
     espNowEvent_t event;
     event.id = SEND;
-    event.eventData.sendData.data = d;
-    event.eventData.sendData.len = len;
+    event.eventData.sendData.data = NULL;
+    event.eventData.sendData.len = 0;
+    event.eventData.sendData.seq = data->seq_num;
     memcpy(event.eventData.sendData.mac, sender_mac, ESP_NOW_ETH_ALEN);
     xQueueSend(evt_queue, &event, 0);
 };
+
+#else
+
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
+    if (len > 0) {
+        ESP_LOGD(WESP_NOW_TAG, "Got marker return %d", *(uint16_t*)data->payload );
+    } else {
+        ESP_LOGD(WESP_NOW_TAG, "Got packet %d", data->seq_num );
+    }
+}
+
+uint16_t seq = 0;
+static void pingTask( void * pvParameters ) {
+    espNowEvent_t event;
+    event.id = SEND;
+    event.eventData.sendData.data = NULL;
+    event.eventData.sendData.len = 0;
+    event.eventData.sendData.seq = seq;
+    seq++;
+    memcpy(event.eventData.sendData.mac, MAC2, ESP_NOW_ETH_ALEN);
+
+    for (;;) {
+        vTaskDelay(500/portTICK_PERIOD_MS);
+        event.eventData.sendData.seq = seq;
+        seq++;
+        ESP_LOGD(WESP_NOW_TAG, "Sending packet %d", seq );
+        xQueueSend(evt_queue, &event, 0);
+    }
+}
 
 #endif
 
@@ -142,15 +170,16 @@ void app_main(void)
 
 #ifdef BUTTON
     espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1);
+    evt_queue = espNowQueue->eventQueue;
     espNowQueue->recvEvent = &recvEvent;
 #else
 
     espNowHandle_t *espNowQueue = espNowWrapper(&MAC2, 1);
+    evt_queue = espNowQueue->eventQueue;
     espNowQueue->recvEvent = &recvEvent;
 #endif
 
     espNowLogMac();
-    evt_queue = espNowQueue->eventQueue;
     
 #ifdef BUTTON
     gpio_config_t config = {
@@ -170,6 +199,7 @@ void app_main(void)
 
     gpio_pad_select_gpio(GPIO_NUM_13);
     gpio_set_direction(GPIO_NUM_13, GPIO_MODE_OUTPUT);
+    BaseType_t ret = xTaskCreate(pingTask, "pingTask", 2048, NULL, 4, NULL);
 #endif
     logRSSI();
 }
