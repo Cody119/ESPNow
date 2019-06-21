@@ -16,12 +16,12 @@ static void wifi_init() {
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
     ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );
-    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK( esp_wifi_set_mode(WESP_NOW_THIS_MODE) );
 
     ESP_ERROR_CHECK( esp_wifi_start());
 
     /* Set channel */
-    ESP_ERROR_CHECK( esp_wifi_set_channel(ESP_NOW_WIFI_CHANNEL, 0) );
+    ESP_ERROR_CHECK( esp_wifi_set_channel(WESP_NOW_WIFI_CHANNEL, 0) );
 
 // #if CONFIG_ESPNOW_ENABLE_LONG_RANGE
 //     ESP_ERROR_CHECK( esp_wifi_set_protocol(ESPNOW_WIFI_IF, WIFI_PROTOCOL_11B|WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N|WIFI_PROTOCOL_LR) );
@@ -47,12 +47,13 @@ static xQueueHandle evt_queue = NULL;
 
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
     //uint32_t x = gpio_get_level(GPIO_NUM_32);
-    //ESP_LOGI(ESP_W_TAG, "Got button press");
+    //ESP_LOGI(WESP_NOW_TAG, "Got button press");
     uint8_t *d = malloc(sizeof(uint8_t));
     *d = 77;
     espNowEvent_t event;
     event.id = SEND;
     event.eventData.sendData.data = d;
+    event.eventData.sendData.len = sizeof(uint8_t);
     memcpy(event.eventData.sendData.mac, MAC1, sizeof(MAC1));
     xQueueSendFromISR(evt_queue, &event, NULL);
 }
@@ -74,9 +75,10 @@ void app_main(void)
     wifi_init();
 
 #ifdef BUTTON
-    espNowHandle_t *espNowQueue = espNowWrapper(MAC1);
+    espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1);
 #else
-    espNowHandle_t *espNowQueue = espNowWrapper(MAC2);
+
+    espNowHandle_t *espNowQueue = espNowWrapper(&MAC2, 1);
     espNowQueue->recvEvent = &recvEvent;
 #endif
     espNowLogMac();
