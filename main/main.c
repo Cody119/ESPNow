@@ -26,36 +26,13 @@ static void wifi_init() {
 // #if CONFIG_ESPNOW_ENABLE_LONG_RANGE
 //     ESP_ERROR_CHECK( esp_wifi_set_protocol(ESPNOW_WIFI_IF, WIFI_PROTOCOL_11B|WIFI_PROTOCOL_11G|WIFI_PROTOCOL_11N|WIFI_PROTOCOL_LR) );
 // #endif
-
-    /* From here you could use the following for normal wifi, but for esp now its not used */
-    // wifi_config_t sta_config = {
-    //     .sta = {
-    //         .ssid = CONFIG_ESP_WIFI_SSID,
-    //         .password = CONFIG_ESP_WIFI_PASSWORD,
-    //         .bssid_set = false
-    //     }
-    // };
-    // ESP_ERROR_CHECK( esp_wifi_set_config(WIFI_IF_STA, &sta_config) );
-    // ESP_ERROR_CHECK( esp_wifi_start() );
-    // ESP_ERROR_CHECK( esp_wifi_connect() );
-
 }
-
-static xQueueHandle evt_queue = NULL;
 
 #ifdef BUTTON
 
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
-    //uint32_t x = gpio_get_level(GPIO_NUM_32);
-    //ESP_LOGI(WESP_NOW_TAG, "Got button press");
-    uint8_t *d = malloc(sizeof(uint8_t));
-    *d = 77;
-    espNowEvent_t event;
-    event.id = SEND;
-    event.eventData.sendData.data = d;
-    event.eventData.sendData.len = sizeof(uint8_t);
-    memcpy(event.eventData.sendData.mac, MAC1, sizeof(MAC1));
-    xQueueSendFromISR(evt_queue, &event, NULL);
+    uint8_t d = 77;
+    espNowSendFromISR((espNowHandle_t*)arg, MAC2, 0, &d, sizeof(uint8_t), NULL, NULL);
 }
 #else
 
@@ -75,16 +52,13 @@ void app_main(void)
     wifi_init();
 
 #ifdef BUTTON
-    espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1);
+    espNowHandle_t *espNowQueue = espNowWrapper(&MAC2, 1, NULL, NULL);
 #else
-
-    espNowHandle_t *espNowQueue = espNowWrapper(&MAC2, 1);
-    espNowQueue->recvEvent = &recvEvent;
+    espNowHandle_t *espNowQueue = espNowWrapper(&MAC1, 1, &recvEvent, NULL);
 #endif
     espNowLogMac();
     
 #ifdef BUTTON
-    evt_queue = espNowQueue->eventQueue;
     gpio_config_t config = {
         .pin_bit_mask = GPIO_SEL_32,
         .mode = GPIO_MODE_DEF_INPUT,
@@ -97,7 +71,7 @@ void app_main(void)
     //install gpio isr service
     gpio_install_isr_service(0);
     //hook isr handler for specific gpio pin
-    gpio_isr_handler_add(GPIO_NUM_32, gpio_isr_handler, NULL);
+    gpio_isr_handler_add(GPIO_NUM_32, gpio_isr_handler, espNowQueue);
 #else
 
     gpio_pad_select_gpio(GPIO_NUM_13);
