@@ -6,11 +6,9 @@
 
 //"Reworked" (COM12?) The recieve device
 // 30 ae a4 36 45 f4 - Factory
-// 30 ae a4 36 45 f4 - Station
 uint8_t MAC1[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x36, 0x45, 0xF4};
 //Other board (COM13?) the button device
 // 30 ae a4 0d 70 a4 - Factory
-// 30 ae a4 0d 70 a5 - Station
 uint8_t MAC2[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x0D, 0x70, 0xA4};
 
 
@@ -98,7 +96,7 @@ static xQueueHandle evt_queue = NULL;
 #ifdef BUTTON
 
 TickType_t prev = 0;
-uint16_t count = 0;
+uint8_t count = 0;
 
 static void IRAM_ATTR gpio_isr_handler(void* arg) {
     TickType_t t = xTaskGetTickCountFromISR();
@@ -106,37 +104,35 @@ static void IRAM_ATTR gpio_isr_handler(void* arg) {
         return;
     }
     prev = t;
-
-    int16_t *d = malloc(sizeof(int16_t));
     count++;
-    *d = count;
     espNowEvent_t event;
     event.id = SEND;
-    event.eventData.sendData.data = d;
-    event.eventData.sendData.len = sizeof(int16_t);
+    event.eventData.sendData.data[0] = count;
+    event.eventData.sendData.len = sizeof(uint8_t);
+    event.eventData.sendData.send_cb = NULL;
     memcpy(event.eventData.sendData.mac, MAC1, ESP_NOW_ETH_ALEN);
     xQueueSendFromISR(evt_queue, &event, NULL);
 }
 
-static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], uint16_t seq_num, uint8_t *data, uint16_t len){
     // char *d = malloc(sizeof(len));
     // memcpy(d, data->payload, len);
     espNowEvent_t event;
     event.id = SEND;
-    event.eventData.sendData.data = NULL;
     event.eventData.sendData.len = 0;
-    event.eventData.sendData.seq = data->seq_num;
+    event.eventData.sendData.seq = seq_num;
+    event.eventData.sendData.send_cb = NULL;
     memcpy(event.eventData.sendData.mac, sender_mac, ESP_NOW_ETH_ALEN);
     xQueueSend(evt_queue, &event, 0);
 };
 
 #else
 
-static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], espNowPacket_t *data, uint16_t len){
+static void recvEvent(uint8_t sender_mac[ESP_NOW_ETH_ALEN], uint16_t seq_num, uint8_t *data, uint16_t len){
     if (len > 0) {
-        ESP_LOGD(WESP_NOW_TAG, "Got marker return %d", *(uint16_t*)data->payload );
+        ESP_LOGD(WESP_NOW_TAG, "Got marker return %d", data[0] );
     } else {
-        ESP_LOGD(WESP_NOW_TAG, "Got packet %d", data->seq_num );
+        ESP_LOGD(WESP_NOW_TAG, "Got packet %d", seq_num );
     }
 }
 
@@ -144,9 +140,9 @@ uint16_t seq = 0;
 static void pingTask( void * pvParameters ) {
     espNowEvent_t event;
     event.id = SEND;
-    event.eventData.sendData.data = NULL;
     event.eventData.sendData.len = 0;
     event.eventData.sendData.seq = seq;
+    event.eventData.sendData.send_cb = NULL;
     seq++;
     memcpy(event.eventData.sendData.mac, MAC2, ESP_NOW_ETH_ALEN);
 
