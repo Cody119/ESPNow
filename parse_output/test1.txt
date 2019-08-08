@@ -1,0 +1,382 @@
+I (773) ESPNOW: espnow [version: 1.0] init
+D (773) efuse: coding scheme 0
+D (773) efuse: In EFUSE_BLK0__DATA2_REG is used 8 bits starting with 8 bit
+D (783) efuse: coding scheme 0
+D (783) efuse: In EFUSE_BLK0__DATA2_REG is used 8 bits starting with 0 bit
+D (793) efuse: coding scheme 0
+D (793) efuse: In EFUSE_BLK0__DATA1_REG is used 8 bits starting with 24 bit
+D (803) efuse: coding scheme 0
+D (803) efuse: In EFUSE_BLK0__DATA1_REG is used 8 bits starting with 16 bit
+D (813) efuse: coding scheme 0
+D (813) efuse: In EFUSE_BLK0__DATA1_REG is used 8 bits starting with 8 bit
+D (823) efuse: coding scheme 0
+D (823) efuse: In EFUSE_BLK0__DATA1_REG is used 8 bits starting with 0 bit
+D (833) efuse: coding scheme 0
+D (833) efuse: In EFUSE_BLK0__DATA2_REG is used 8 bits starting with 16 bit
+I (843) wifi: ic_enable_sniffer
+D (1343) EspNow Wrapper: Sending packet 2
+D (1343) EspNow Wrapper: Recived packet with RSSI: -56 from 30:ae:a4:0d:70:a4
+D (1343) EspNow Wrapper: Got packet 1
+D (1843) EspNow Wrapper: Sending packet 3
+D (1843) EspNow Wrapper: Recived packet with RSSI: -58 from 30:ae:a4:0d:70:a4
+D (1843) EspNow Wrapper: Got packet 2
+D (2343) EspNow Wrapper: Sending packet 4
+D (2353) EspNow Wrapper: Recived packet with RSSI: -60 from 30:ae:a4:0d:70:a4
+D (2353) EspNow Wrapper: Got packet 3
+D (2843) EspNow Wrapper: Sending packet 5
+D (2843) EspNow Wrapper: Recived packet with RSSI: -63 from 30:ae:a4:0d:70:a4
+D (2843) EspNow Wrapper: Got packet 4
+D (3343) EspNow Wrapper: Sending packet 6
+D (3343) EspNow Wrapper: Recived packet with RSSI: -55 from 30:ae:a4:0d:70:a4
+D (3343) EspNow Wrapper: Got packet 5
+D (3843) EspNow Wrapper: Sending packet 7
+D (3843) EspNow Wrapper: Recived packet with RSSI: -54 from 30:ae:a4:0d:70:a4
+D (3843) EspNow Wrapper: Got packet 6
+D (4343) EspNow Wrapper: Sending packet 8
+D (4343) EspNow Wrapper: Recived packet with RSSI: -53 from 30:ae:a4:0d:70:a4
+D (4343) EspNow Wrapper: Got packet 7
+D (4693) EspNow Wrapper: Recived packet with RSSI: -54 from 30:ae:a4:0d:70:a4
+D (4693) EspNow Wrapper: Got marker return 1
+D (4843) EspNow Wrapper: Sending packet 9
+D (4843) EspNow Wrapper: Recived packet with RSSI: -54 from 30:ae:a4:0d:70:a4
+D (4843) EspNow Wrapper: Got packet 8
+D (5343) EspNow Wrapper: Sending packet 10
+D (5343) EspNow Wrapper: Recived packet with RSSI: -62 from 30:ae:a4:0d:70:a4
+D (5343) EspNow Wrapper: Got packet 9
+D (5343) EspNow Wrapper: Recived packet with RSSI: -62 from 30:ae:a4:0d:70:a4
+D (5843) EspNow Wrapper: Sending packet 11
+D (5843) EspNow Wrapper: Recived packet with RSSI: -66 from 30:ae:a4:0d:70:a4
+D (5843) EspNow Wrapper: Got packet 10
+D (6343) EspNow Wrapper: Sending packet 12
+D (6343) EspNow Wrapper: Recived packet with RSSI: -68 from 30:ae:a4:0d:70:a4
+D (6343) EspNow Wrapper: Got packet 11
+D (6843) EspNow Wrapper: Sending packet 13
+D (6843) EspNow Wrapper: Recived packet with RSSI: -68 from 30:ae:a4:0d:70:a4
+D (6843) EspNow Wrapper: Got packet 12
+D (7343) EspNow Wrapper: Sending packet 14
+D (7343) EspNow Wrapper: Recived packet with RSSI: -67 from 30:ae:a4:0d:70:a4
+D (7343) EspNow Wrapper: Got packet 13
+D (7703) EspNow Wrapper: Recived packet with RSSI: -71 from 30:ae:a4:0d:70:a4
+D (7703) EspNow Wrapper: Got marker return 2
+D (7843) EspNow Wrapper: Sending packet 15
+D (7843) EspNow Wrapper: Recived packet with RSSI: -70 from 30:ae:a4:0d:70:a4
+D (7843) EspNow Wrapper: Got packet 14
+D (8343) EspNow Wrapper: Sending packet 16
+D (8343) EspNow Wrapper: Recived packet with RSSI: -77 from 30:ae:a4:0d:70:a4
+D (8343) EspNow Wrapper: Got packet 15
+D (8843) EspNow Wrapper: Sending packet 17
+D (8843) EspNow Wrapper: Recived packet with RSSI: -72 from 30:ae:a4:0d:70:a4
+D (8843) EspNow Wrapper: Got packet 16
+D (9343) EspNow Wrapper: Sending packet 18
+D (9343) EspNow Wrapper: Recived packet with RSSI: -75 from 30:ae:a4:0d:70:a4
+D (9343) EspNow Wrapper: Got packet 17
+D (9843) EspNow Wrapper: Sending packet 19
+D (9843) EspNow Wrapper: Recived packet with RSSI: -69 from 30:ae:a4:0d:70:a4
+D (9843) EspNow Wrapper: Got packet 18
+D (10343) EspNow Wrapper: Sending packet 20
+D (10343) EspNow Wrapper: Recived packet with RSSI: -80 from 30:ae:a4:0d:70:a4
+D (10343) EspNow Wrapper: Got packet 19
+D (10573) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (10573) EspNow Wrapper: Got marker return 3
+D (10573) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (10843) EspNow Wrapper: Sending packet 21
+D (10843) EspNow Wrapper: Recived packet with RSSI: -70 from 30:ae:a4:0d:70:a4
+D (10843) EspNow Wrapper: Got packet 20
+D (11343) EspNow Wrapper: Sending packet 22
+D (11343) EspNow Wrapper: Recived packet with RSSI: -74 from 30:ae:a4:0d:70:a4
+D (11343) EspNow Wrapper: Got packet 21
+D (11843) EspNow Wrapper: Sending packet 23
+D (11843) EspNow Wrapper: Recived packet with RSSI: -77 from 30:ae:a4:0d:70:a4
+D (11843) EspNow Wrapper: Got packet 22
+D (12343) EspNow Wrapper: Sending packet 24
+D (12343) EspNow Wrapper: Recived packet with RSSI: -81 from 30:ae:a4:0d:70:a4
+D (12343) EspNow Wrapper: Got packet 23
+D (12843) EspNow Wrapper: Sending packet 25
+D (12843) EspNow Wrapper: Recived packet with RSSI: -80 from 30:ae:a4:0d:70:a4
+D (12843) EspNow Wrapper: Got packet 24
+D (13343) EspNow Wrapper: Sending packet 26
+D (13343) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (13343) EspNow Wrapper: Got marker return 4
+D (13343) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (13353) EspNow Wrapper: Got packet 25
+D (13843) EspNow Wrapper: Sending packet 27
+D (13843) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (13843) EspNow Wrapper: Got packet 26
+D (14343) EspNow Wrapper: Sending packet 28
+D (14343) EspNow Wrapper: Recived packet with RSSI: -78 from 30:ae:a4:0d:70:a4
+D (14343) EspNow Wrapper: Got packet 27
+D (14343) EspNow Wrapper: Recived packet with RSSI: -79 from 30:ae:a4:0d:70:a4
+D (14843) EspNow Wrapper: Sending packet 29
+D (14843) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (14843) EspNow Wrapper: Got packet 28
+D (15343) EspNow Wrapper: Sending packet 30
+D (15343) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (15343) EspNow Wrapper: Got packet 29
+D (15843) EspNow Wrapper: Sending packet 31
+D (15843) EspNow Wrapper: Recived packet with RSSI: -85 from 30:ae:a4:0d:70:a4
+D (15843) EspNow Wrapper: Got packet 30
+D (16233) EspNow Wrapper: Recived packet with RSSI: -84 from 30:ae:a4:0d:70:a4
+D (16233) EspNow Wrapper: Got marker return 5
+D (16343) EspNow Wrapper: Sending packet 32
+D (16343) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (16343) EspNow Wrapper: Got packet 31
+D (16843) EspNow Wrapper: Sending packet 33
+D (16843) EspNow Wrapper: Recived packet with RSSI: -87 from 30:ae:a4:0d:70:a4
+D (16843) EspNow Wrapper: Got packet 32
+D (17343) EspNow Wrapper: Sending packet 34
+D (17343) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (17343) EspNow Wrapper: Got packet 33
+D (17843) EspNow Wrapper: Sending packet 35
+D (17843) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (17843) EspNow Wrapper: Got packet 34
+D (18343) EspNow Wrapper: Sending packet 36
+D (18343) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (18343) EspNow Wrapper: Got packet 35
+D (18343) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (18353) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (18843) EspNow Wrapper: Sending packet 37
+D (18843) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (18843) EspNow Wrapper: Got packet 36
+D (18843) EspNow Wrapper: Recived packet with RSSI: -84 from 30:ae:a4:0d:70:a4
+D (19113) EspNow Wrapper: Recived packet with RSSI: -87 from 30:ae:a4:0d:70:a4
+D (19113) EspNow Wrapper: Got marker return 6
+D (19343) EspNow Wrapper: Sending packet 38
+D (19343) EspNow Wrapper: Recived packet with RSSI: -84 from 30:ae:a4:0d:70:a4
+D (19343) EspNow Wrapper: Got packet 37
+D (19843) EspNow Wrapper: Sending packet 39
+D (19843) EspNow Wrapper: Recived packet with RSSI: -83 from 30:ae:a4:0d:70:a4
+D (19843) EspNow Wrapper: Got packet 38
+D (20343) EspNow Wrapper: Sending packet 40
+D (20343) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (20343) EspNow Wrapper: Got packet 39
+D (20843) EspNow Wrapper: Sending packet 41
+D (20843) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (20843) EspNow Wrapper: Got packet 40
+D (21343) EspNow Wrapper: Sending packet 42
+D (21353) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (21353) EspNow Wrapper: Got packet 41
+D (21763) EspNow Wrapper: Recived packet with RSSI: -84 from 30:ae:a4:0d:70:a4
+D (21763) EspNow Wrapper: Got marker return 7
+D (21843) EspNow Wrapper: Sending packet 43
+D (21843) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (21843) EspNow Wrapper: Got packet 42
+D (22343) EspNow Wrapper: Sending packet 44
+D (22343) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (22353) EspNow Wrapper: Got packet 43
+D (22843) EspNow Wrapper: Sending packet 45
+D (22843) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (22843) EspNow Wrapper: Got packet 44
+D (23343) EspNow Wrapper: Sending packet 46
+D (23343) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (23343) EspNow Wrapper: Got packet 45
+D (23343) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (23843) EspNow Wrapper: Sending packet 47
+D (23843) EspNow Wrapper: Recived packet with RSSI: -96 from 30:ae:a4:0d:70:a4
+D (23843) EspNow Wrapper: Got packet 46
+D (24343) EspNow Wrapper: Sending packet 48
+E (24373) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (24843) EspNow Wrapper: Sending packet 49
+D (24843) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (24843) EspNow Wrapper: Got packet 48
+D (25343) EspNow Wrapper: Sending packet 50
+D (25343) EspNow Wrapper: Recived packet with RSSI: -80 from 30:ae:a4:0d:70:a4
+D (25343) EspNow Wrapper: Got packet 49
+D (25843) EspNow Wrapper: Sending packet 51
+D (25843) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (25843) EspNow Wrapper: Got packet 50
+D (26343) EspNow Wrapper: Sending packet 52
+D (26353) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (26353) EspNow Wrapper: Got packet 51
+D (26843) EspNow Wrapper: Sending packet 53
+D (26843) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (26843) EspNow Wrapper: Got packet 52
+D (27343) EspNow Wrapper: Sending packet 54
+E (27363) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (27393) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (27393) EspNow Wrapper: Got packet 53
+D (27553) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (27553) EspNow Wrapper: Got marker return 9
+D (27843) EspNow Wrapper: Sending packet 55
+D (27843) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (27843) EspNow Wrapper: Got packet 54
+D (28343) EspNow Wrapper: Sending packet 56
+D (28343) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (28343) EspNow Wrapper: Got packet 55
+D (28843) EspNow Wrapper: Sending packet 57
+D (28843) EspNow Wrapper: Recived packet with RSSI: -95 from 30:ae:a4:0d:70:a4
+D (28843) EspNow Wrapper: Got packet 56
+D (29343) EspNow Wrapper: Sending packet 58
+E (29363) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (29843) EspNow Wrapper: Sending packet 59
+E (29863) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (30343) EspNow Wrapper: Sending packet 60
+D (30343) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (30343) EspNow Wrapper: Got packet 59
+D (30843) EspNow Wrapper: Sending packet 61
+E (30863) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (30883) EspNow Wrapper: Recived packet with RSSI: -96 from 30:ae:a4:0d:70:a4
+D (30883) EspNow Wrapper: Got packet 60
+D (31343) EspNow Wrapper: Sending packet 62
+D (31343) EspNow Wrapper: Recived packet with RSSI: -89 from 30:ae:a4:0d:70:a4
+D (31343) EspNow Wrapper: Got marker return 10
+D (31343) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (31353) EspNow Wrapper: Got packet 61
+D (31843) EspNow Wrapper: Sending packet 63
+D (31843) EspNow Wrapper: Recived packet with RSSI: -87 from 30:ae:a4:0d:70:a4
+D (31843) EspNow Wrapper: Got packet 62
+D (32343) EspNow Wrapper: Sending packet 64
+D (32343) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (32343) EspNow Wrapper: Got packet 63
+D (32843) EspNow Wrapper: Sending packet 65
+E (32873) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (33343) EspNow Wrapper: Sending packet 66
+D (33373) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (33373) EspNow Wrapper: Got packet 65
+D (33843) EspNow Wrapper: Sending packet 67
+D (33853) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (33863) EspNow Wrapper: Got packet 66
+D (34343) EspNow Wrapper: Sending packet 68
+D (34343) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (34343) EspNow Wrapper: Got packet 67
+D (34843) EspNow Wrapper: Sending packet 69
+D (34843) EspNow Wrapper: Recived packet with RSSI: -96 from 30:ae:a4:0d:70:a4
+D (34843) EspNow Wrapper: Got packet 68
+D (35343) EspNow Wrapper: Sending packet 70
+E (35373) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (35843) EspNow Wrapper: Sending packet 71
+E (35873) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (35893) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (35893) EspNow Wrapper: Got packet 70
+D (36343) EspNow Wrapper: Sending packet 72
+E (36363) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (36843) EspNow Wrapper: Sending packet 73
+E (36863) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (36983) EspNow Wrapper: Recived packet with RSSI: -97 from 30:ae:a4:0d:70:a4
+D (36983) EspNow Wrapper: Got marker return 12
+D (37343) EspNow Wrapper: Sending packet 74
+E (37363) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (37843) EspNow Wrapper: Sending packet 75
+E (37863) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (38343) EspNow Wrapper: Sending packet 76
+E (38363) EspNow Wrapper: Failed to send to mac: 30:ae:a4:0d:70:a4
+D (38843) EspNow Wrapper: Sending packet 77
+D (38883) EspNow Wrapper: Recived packet with RSSI: -95 from 30:ae:a4:0d:70:a4
+D (38883) EspNow Wrapper: Got packet 76
+D (39343) EspNow Wrapper: Sending packet 78
+D (39343) EspNow Wrapper: Recived packet with RSSI: -95 from 30:ae:a4:0d:70:a4
+D (39343) EspNow Wrapper: Got packet 77
+D (39843) EspNow Wrapper: Sending packet 79
+D (39843) EspNow Wrapper: Recived packet with RSSI: -97 from 30:ae:a4:0d:70:a4
+D (39843) EspNow Wrapper: Got packet 78
+D (39843) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (40343) EspNow Wrapper: Sending packet 80
+D (40343) EspNow Wrapper: Recived packet with RSSI: -95 from 30:ae:a4:0d:70:a4
+D (40343) EspNow Wrapper: Got packet 79
+D (40843) EspNow Wrapper: Sending packet 81
+D (40843) EspNow Wrapper: Recived packet with RSSI: -86 from 30:ae:a4:0d:70:a4
+D (40843) EspNow Wrapper: Got packet 80
+D (41343) EspNow Wrapper: Sending packet 82
+D (41343) EspNow Wrapper: Recived packet with RSSI: -96 from 30:ae:a4:0d:70:a4
+D (41343) EspNow Wrapper: Got packet 81
+D (41843) EspNow Wrapper: Sending packet 83
+D (41853) EspNow Wrapper: Recived packet with RSSI: -93 from 30:ae:a4:0d:70:a4
+D (41853) EspNow Wrapper: Got packet 82
+D (42343) EspNow Wrapper: Sending packet 84
+D (42343) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (42343) EspNow Wrapper: Got packet 83
+D (42843) EspNow Wrapper: Sending packet 85
+D (42853) EspNow Wrapper: Recived packet with RSSI: -92 from 30:ae:a4:0d:70:a4
+D (42853) EspNow Wrapper: Got packet 84
+D (43343) EspNow Wrapper: Sending packet 86
+D (43343) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (43343) EspNow Wrapper: Got packet 85
+D (43343) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (43843) EspNow Wrapper: Sending packet 87
+D (43843) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (43843) EspNow Wrapper: Got packet 86
+D (44343) EspNow Wrapper: Sending packet 88
+D (44343) EspNow Wrapper: Recived packet with RSSI: -81 from 30:ae:a4:0d:70:a4
+D (44343) EspNow Wrapper: Got packet 87
+D (44843) EspNow Wrapper: Sending packet 89
+D (44843) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (44843) EspNow Wrapper: Got packet 88
+D (45343) EspNow Wrapper: Sending packet 90
+D (45353) EspNow Wrapper: Recived packet with RSSI: -82 from 30:ae:a4:0d:70:a4
+D (45353) EspNow Wrapper: Got packet 89
+D (45843) EspNow Wrapper: Sending packet 91
+D (45853) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (45853) EspNow Wrapper: Got packet 90
+D (46343) EspNow Wrapper: Sending packet 92
+D (46343) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (46343) EspNow Wrapper: Got packet 91
+D (46843) EspNow Wrapper: Sending packet 93
+D (46853) EspNow Wrapper: Recived packet with RSSI: -82 from 30:ae:a4:0d:70:a4
+D (46853) EspNow Wrapper: Got packet 92
+D (47343) EspNow Wrapper: Sending packet 94
+D (47353) EspNow Wrapper: Recived packet with RSSI: -94 from 30:ae:a4:0d:70:a4
+D (47353) EspNow Wrapper: Got packet 93
+D (47843) EspNow Wrapper: Sending packet 95
+D (47853) EspNow Wrapper: Recived packet with RSSI: -87 from 30:ae:a4:0d:70:a4
+D (47853) EspNow Wrapper: Got packet 94
+D (48343) EspNow Wrapper: Sending packet 96
+D (48343) EspNow Wrapper: Recived packet with RSSI: -82 from 30:ae:a4:0d:70:a4
+D (48343) EspNow Wrapper: Got packet 95
+D (48843) EspNow Wrapper: Sending packet 97
+D (48843) EspNow Wrapper: Recived packet with RSSI: -79 from 30:ae:a4:0d:70:a4
+D (48843) EspNow Wrapper: Got packet 96
+D (49343) EspNow Wrapper: Sending packet 98
+D (49343) EspNow Wrapper: Recived packet with RSSI: -88 from 30:ae:a4:0d:70:a4
+D (49343) EspNow Wrapper: Got packet 97
+D (49843) EspNow Wrapper: Sending packet 99
+D (49843) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (49843) EspNow Wrapper: Got packet 98
+D (50343) EspNow Wrapper: Sending packet 100
+D (50343) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (50343) EspNow Wrapper: Got packet 99
+D (50843) EspNow Wrapper: Sending packet 101
+D (50843) EspNow Wrapper: Recived packet with RSSI: -80 from 30:ae:a4:0d:70:a4
+D (50853) EspNow Wrapper: Got packet 100
+D (51343) EspNow Wrapper: Sending packet 102
+D (51353) EspNow Wrapper: Recived packet with RSSI: -84 from 30:ae:a4:0d:70:a4
+D (51353) EspNow Wrapper: Got packet 101
+D (51843) EspNow Wrapper: Sending packet 103
+D (51853) EspNow Wrapper: Recived packet with RSSI: -90 from 30:ae:a4:0d:70:a4
+D (51853) EspNow Wrapper: Got packet 102
+D (52343) EspNow Wrapper: Sending packet 104
+D (52343) EspNow Wrapper: Recived packet with RSSI: -83 from 30:ae:a4:0d:70:a4
+D (52343) EspNow Wrapper: Got packet 103
+D (52843) EspNow Wrapper: Sending packet 105
+D (52853) EspNow Wrapper: Recived packet with RSSI: -91 from 30:ae:a4:0d:70:a4
+D (52853) EspNow Wrapper: Got packet 104
+D (53343) EspNow Wrapper: Sending packet 106
+D (53353) EspNow Wrapper: Recived packet with RSSI: -79 from 30:ae:a4:0d:70:a4
+D (53353) EspNow Wrapper: Got packet 105
+D (53843) EspNow Wrapper: Sending packet 107
+D (53843) EspNow Wrapper: Recived packet with RSSI: -71 from 30:ae:a4:0d:70:a4
+D (53843) EspNow Wrapper: Got packet 106
+D (54343) EspNow Wrapper: Sending packet 108
+D (54343) EspNow Wrapper: Recived packet with RSSI: -79 from 30:ae:a4:0d:70:a4
+D (54343) EspNow Wrapper: Got packet 107
+D (54843) EspNow Wrapper: Sending packet 109
+D (54843) EspNow Wrapper: Recived packet with RSSI: -72 from 30:ae:a4:0d:70:a4
+D (54843) EspNow Wrapper: Got packet 108
+D (55343) EspNow Wrapper: Sending packet 110
+D (55343) EspNow Wrapper: Recived packet with RSSI: -73 from 30:ae:a4:0d:70:a4
+D (55343) EspNow Wrapper: Got packet 109
+D (55843) EspNow Wrapper: Sending packet 111
+D (55843) EspNow Wrapper: Recived packet with RSSI: -67 from 30:ae:a4:0d:70:a4
+D (55843) EspNow Wrapper: Got packet 110
+D (55843) EspNow Wrapper: Recived packet with RSSI: -68 from 30:ae:a4:0d:70:a4
+D (56343) EspNow Wrapper: Sending packet 112
+D (56343) EspNow Wrapper: Recived packet with RSSI: -63 from 30:ae:a4:0d:70:a4
+D (56343) EspNow Wrapper: Got packet 111
+D (56843) EspNow Wrapper: Sending packet 113
+D (56843) EspNow Wrapper: Recived packet with RSSI: -57 from 30:ae:a4:0d:70:a4
+D (56843) EspNow Wrapper: Got packet 112
+D (57343) EspNow Wrapper: Sending packet 114
+D (57343) EspNow Wrapper: Recived packet with RSSI: -44 from 30:ae:a4:0d:70:a4
+D (57343) EspNow Wrapper: Got packet 113
+D (57843) EspNow Wrapper: Sending packet 115
+D (57843) EspNow Wrapper: Recived packet with RSSI: -48 from 30:ae:a4:0d:70:a4
+D (57843) EspNow Wrapper: Got packet 114
+

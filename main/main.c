@@ -1,5 +1,7 @@
 #include "main.h"
 
+// https://www.reddit.com/r/esp32/comments/9jmkf9/here_is_how_you_set_a_custom_mac_address_on_esp32/
+
 //"Reworked" (COM12?)
 // 30 ae a4 36 45 f4 - Factory
 // 30 ae a4 36 45 f4 - Station
@@ -9,8 +11,13 @@ uint8_t MAC1[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x36, 0x45, 0xF4};
 // 30 ae a4 0d 70 a5 - Station
 uint8_t MAC2[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xA4, 0x0D, 0x70, 0xA4};
 
+uint8_t TEST_MAC[ESP_NOW_ETH_ALEN] = {0x30, 0xAE, 0xDE, 0xED, 0xFF, 0xFF};
+
 /* WiFi should start before using ESPNOW */
 static void wifi_init() {
+    // esp_base_mac_addr_set(TEST_MAC);
+    // esp_wifi_set_mac(ESP_IF_WIFI_STA, TEST_MAC);
+
     tcpip_adapter_init();
     ESP_ERROR_CHECK(esp_event_loop_create_default());
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
